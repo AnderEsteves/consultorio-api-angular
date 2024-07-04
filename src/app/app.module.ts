@@ -11,6 +11,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { MedicoComponent } from './pages/medico/medico.component';
 import { provideHttpClient } from '@angular/common/http';
 import { MedicoCreateComponent } from './pages/medico/medico-create/medico-create.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MedicoCreateComponent } from './pages/medico/medico-create/medico-creat
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [
     provideHttpClient()

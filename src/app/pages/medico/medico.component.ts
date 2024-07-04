@@ -10,13 +10,22 @@ import { MedicoService } from '../../services/medicos/medico.service';
 export class MedicoComponent {
 
   Medicos: Medico[];
+  Crm : string;
+  Nome : string;
 
   constructor(private medicoServices: MedicoService){
     this.Medicos = [];
+    this.Crm = '';
+    this.Nome = '';
   }
 
   pesquisar():void{
+    if(this.Crm !== '')
+     return this.pesquisarPorCrm();
 
+    if(this.Nome !== '')
+      return this.pesquisarPorNome();
+    this.pesquisarTudo();
   }
 
 
@@ -28,12 +37,20 @@ export class MedicoComponent {
     })
   }
 
-  pesquisarPorID():void{
-
+  pesquisarPorCrm():void{
+    this.medicoServices.getCrm(this.Crm).subscribe({
+      next: jsonMedico => {
+       this.Medicos = [jsonMedico];
+      }
+    })
   }
 
   pesquisarPorNome():void{
-
+    this.medicoServices.getNome(this.Nome).subscribe({
+      next: jsonMedico => {
+       this.Medicos = jsonMedico;
+      }
+    })
   }
 
 
