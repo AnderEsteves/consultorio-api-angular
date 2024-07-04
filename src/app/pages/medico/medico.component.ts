@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Medico } from '../../models/models.medico';
+import { MedicoService } from '../../services/medicos/medico.service';
 
 @Component({
   selector: 'app-medico',
@@ -6,5 +8,19 @@ import { Component } from '@angular/core';
   styleUrl: './medico.component.css'
 })
 export class MedicoComponent {
+
+  Medicos: Medico[];
+
+  constructor(private medicoServices: MedicoService){
+    this.Medicos = [];
+  }
+
+  pesquisar():void{
+    this.medicoServices.getAll().subscribe({
+      next:(jsonMedico: Medico[]) =>{
+        this.Medicos = jsonMedico;
+      }
+    })
+  }
 
 }

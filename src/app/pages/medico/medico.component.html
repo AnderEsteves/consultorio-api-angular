@@ -1,3 +1,26 @@
 <app-header></app-header>
-<p>Pagina medico</p>
+<form class="pure-form">
+  <fieldset>
+      <legend>PESQUISA DE MÉDICOS</legend>
+      <input type="text" placeholder="Crm" class="input" />
+      <input type="text" placeholder="Nome" class="input"/>
+      <button type="button" (click)="pesquisar()" class="pure-button pure-button-primary">PESQUISAR</button>
+  </fieldset>
+</form>
+<table class="pure-table">
+  <thead>
+      <tr>
+          <th>ID</th>
+          <th>CRM</th>
+          <th>NOME</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let i of this.Medicos">
+          <td>{{i.Id}}</td>
+          <td>{{i.CRM}}</td>
+          <td>{{i.Nome}}</td>
+      </tr>
+  </tbody>
+</table>
 <app-footer></app-footer>
