@@ -10,6 +10,7 @@ import { ContainerComponent } from './shared/container/container.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MedicoComponent } from './pages/medico/medico.component';
 import { provideHttpClient } from '@angular/common/http';
+import { MedicoCreateComponent } from './pages/medico/medico-create/medico-create.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { provideHttpClient } from '@angular/common/http';
     FooterComponent,
     ContainerComponent,
     HomeComponent,
-    MedicoComponent
+    MedicoComponent,
+    MedicoCreateComponent
   ],
   imports: [
     BrowserModule,

@@ -16,11 +16,25 @@ export class MedicoComponent {
   }
 
   pesquisar():void{
+
+  }
+
+
+  pesquisarTudo():void{
     this.medicoServices.getAll().subscribe({
       next:(jsonMedico: Medico[]) =>{
         this.Medicos = jsonMedico;
       }
     })
   }
+
+  pesquisarPorID():void{
+
+  }
+
+  pesquisarPorNome():void{
+
+  }
+
 
 }
