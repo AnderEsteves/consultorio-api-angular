@@ -18,7 +18,21 @@ export class MedicoCreateComponent {
         next: jsonMedico =>{
           alert('Cadastro realizado com sucesso!');
           this.router.navigate(['/medico']);
+        },
+        error:(jsonErro) =>{
+          this.exibirMensagemErro(jsonErro.status);
         }
       })
+  }
+
+  exibirMensagemErro(status: Number){
+    if(status === 400)
+      alert("Confira os dados")
+
+    if(status === 500)
+      alert("Erro no servidor, entre em contato com o suporte")
+
+    if(status === 0)
+      alert("Falha na requisição, entre em contato com o suporte")
   }
 }

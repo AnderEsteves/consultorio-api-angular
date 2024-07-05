@@ -45,6 +45,9 @@ export class MedicoComponent {
     this.medicoServices.getAll().subscribe({
       next:(jsonMedico: Medico[]) =>{
         this.Medicos = jsonMedico;
+      },
+      error: (jsonErro) =>{
+        this.exibirMensagemErro(jsonErro.status );
       }
     })
   }
@@ -53,6 +56,9 @@ export class MedicoComponent {
     this.medicoServices.getCrm(this.Crm).subscribe({
       next: jsonMedico => {
        this.Medicos = [jsonMedico];
+      },
+      error: (jsonErro) =>{
+        this.exibirMensagemErro(jsonErro.status );
       }
     })
   }
@@ -61,6 +67,9 @@ export class MedicoComponent {
     this.medicoServices.getNome(this.Nome).subscribe({
       next: jsonMedico => {
        this.Medicos = jsonMedico;
+      },
+      error: (jsonErro) =>{
+        this.exibirMensagemErro(jsonErro.status );
       }
     })
   }
@@ -69,9 +78,25 @@ export class MedicoComponent {
     this.medicoServices.getId(Number(this.Id)).subscribe({
       next: jsonMedico =>{
         this.Medicos = [jsonMedico];
+      },
+      error: (jsonErro) =>{
+        this.exibirMensagemErro(jsonErro.status );
       }
     })
   }
 
 
+  exibirMensagemErro(status: Number): void{
+    if(status === 404)
+      alert('Medico Não Encontrado');
+
+    else if(status === 500)
+      alert('Erro no servidor, entre em contato com o suporte');
+
+    else if(status === 0)
+      alert('Falha na requisição, entre em contato com o suporte');
+  }
+
 }
+
+
