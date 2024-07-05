@@ -12,6 +12,7 @@ import { MedicoComponent } from './pages/medico/medico.component';
 import { provideHttpClient } from '@angular/common/http';
 import { MedicoCreateComponent } from './pages/medico/medico-create/medico-create.component';
 import { FormsModule } from '@angular/forms';
+import { MedicoEditComponent } from './pages/medico/medico-edit/medico-edit.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     ContainerComponent,
     HomeComponent,
     MedicoComponent,
-    MedicoCreateComponent
+    MedicoCreateComponent,
+    MedicoEditComponent
   ],
   imports: [
     BrowserModule,

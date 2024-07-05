@@ -1,0 +1,27 @@
+<main>
+  <form class="pure-form pure-form-aligned">
+    <fieldset>
+      <legend>Atualizar Dados Do Médico</legend>
+        <div class="oi">
+          <div class="pure-control-group ">
+            <label for="Id">Id:</label>
+            <input type="number" id="Id" name="Id" value="{{this.Medico.Id}}"  disabled/>
+        </div>
+        <div class="pure-control-group ">
+            <label for="Crm">Crm:</label>
+            <input type="text" id="CRM" name="Crm" [(ngModel)]="this.Medico.CRM"/>
+        </div>
+        <div class="pure-control-group">
+            <label for="Nome">Nome:</label>
+            <input type="text" id="Nome" name="Nome" [(ngModel)]="this.Medico.Nome"/>
+        </div>
+        </div>
+        <div>
+          <button type="button" class="pure-button pure-button-primary input" (click)="atualizar()">Atualizar</button>
+          <button type="reset" class="pure-button input" (click)="excluir()">Excluir</button>
+          <button type="button" routerLink="/medico" class="pure-button input">Voltar</button>
+        </div>
+    </fieldset>
+  </form>
+</main>
+<app-footer></app-footer>

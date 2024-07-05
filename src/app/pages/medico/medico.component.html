@@ -3,6 +3,7 @@
   <form class="pure-form">
     <fieldset>
         <legend>PESQUISA DE MÉDICOS</legend>
+        <input type="number" placeholder="Id" name="Id" class="input" [(ngModel)]="this.Id" />
         <input type="text" placeholder="Crm" name="Crm" class="input" [(ngModel)]="this.Crm" />
         <input type="text" placeholder="Nome" name="Nome" class="input" [(ngModel)]="this.Nome"/>
         <button type="button" (click)="pesquisar()" class="pure-button pure-button-primary input">PESQUISAR</button>
@@ -19,7 +20,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let i of this.Medicos">
-            <td>{{i.Id}}</td>
+            <td><a routerLink="/medico/edit/{{i.Id}}">{{i.Id}}</a></td>
             <td>{{i.CRM}}</td>
             <td>{{i.Nome}}</td>
         </tr>

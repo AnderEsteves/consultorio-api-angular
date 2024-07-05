@@ -12,19 +12,31 @@ export class MedicoComponent {
   Medicos: Medico[];
   Crm : string;
   Nome : string;
+  Id: string;
 
   constructor(private medicoServices: MedicoService){
     this.Medicos = [];
     this.Crm = '';
     this.Nome = '';
+    this.Id = '';
   }
 
   pesquisar():void{
-    if(this.Crm !== '')
+
+    this.Medicos = [];
+
+    console.log(this.Id);
+
+    if(this.Id || this.Id == '0' )
+      return this.pesquisarPorId();
+
+
+    if(this.Crm)
      return this.pesquisarPorCrm();
 
-    if(this.Nome !== '')
+    if(this.Nome)
       return this.pesquisarPorNome();
+
     this.pesquisarTudo();
   }
 
@@ -49,6 +61,14 @@ export class MedicoComponent {
     this.medicoServices.getNome(this.Nome).subscribe({
       next: jsonMedico => {
        this.Medicos = jsonMedico;
+      }
+    })
+  }
+
+  pesquisarPorId(): void{
+    this.medicoServices.getId(Number(this.Id)).subscribe({
+      next: jsonMedico =>{
+        this.Medicos = [jsonMedico];
       }
     })
   }
