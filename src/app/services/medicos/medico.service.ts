@@ -22,6 +22,10 @@ export class MedicoService {
     return this.httpClient.get<Medico[]>(`https://localhost:44309/api/medicos?nome=${nome}`);
   }
 
+  post(medico: Medico): Observable<Medico>{
+    return this.httpClient.post<Medico>(`https://localhost:44309/api/medicos`, medico)
+  }
+
 }
 
 

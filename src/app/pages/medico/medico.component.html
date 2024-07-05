@@ -1,27 +1,29 @@
 <app-header></app-header>
-<form class="pure-form">
-  <fieldset>
-      <legend>PESQUISA DE MÉDICOS</legend>
-      <input type="text" placeholder="Crm" name="Crm" class="input" [(ngModel)]="this.Crm" />
-      <input type="text" placeholder="Nome" name="Nome" class="input" [(ngModel)]="this.Nome"/>
-      <button type="button" (click)="pesquisar()" class="pure-button pure-button-primary input">PESQUISAR</button>
-      <button type="button" routerLink="/medico/create" class="pure-button pure-button-primary">NOVO</button>
-  </fieldset>
-</form>
-<table class="pure-table">
-  <thead>
-      <tr>
-          <th>ID</th>
-          <th>CRM</th>
-          <th>NOME</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr *ngFor="let i of this.Medicos">
-          <td>{{i.Id}}</td>
-          <td>{{i.CRM}}</td>
-          <td>{{i.Nome}}</td>
-      </tr>
-  </tbody>
-</table>
+<main>
+  <form class="pure-form">
+    <fieldset>
+        <legend>PESQUISA DE MÉDICOS</legend>
+        <input type="text" placeholder="Crm" name="Crm" class="input" [(ngModel)]="this.Crm" />
+        <input type="text" placeholder="Nome" name="Nome" class="input" [(ngModel)]="this.Nome"/>
+        <button type="button" (click)="pesquisar()" class="pure-button pure-button-primary input">PESQUISAR</button>
+        <button type="button" routerLink="/medico/create" class="pure-button pure-button-primary">NOVO</button>
+    </fieldset>
+  </form>
+  <table class="pure-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>CRM</th>
+            <th>NOME</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let i of this.Medicos">
+            <td>{{i.Id}}</td>
+            <td>{{i.CRM}}</td>
+            <td>{{i.Nome}}</td>
+        </tr>
+    </tbody>
+  </table>
+</main>
 <app-footer></app-footer>
