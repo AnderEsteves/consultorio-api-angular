@@ -1,0 +1,31 @@
+<app-header></app-header>
+<main>
+  <form>
+    <fieldset>
+      <legend>Pesquisa de Pacientes</legend>
+      <input type="text" placeholder="Codigo"  id="Codigo" name="Codigo" [(ngModel)]="this.CodigoInput" >
+      <input type="text" placeholder="Nome"  id="Nome" name="Nome" [(ngModel)]="this.NomeInput" >
+      <!-- <input type="date" placeholder="DataNascimento"  id="DataNascimento" name="DataNascimento" [ngModel]="this.DataNascimentoInput" (ngModelChange)="this.DataNascimentoInput = $event" > -->
+      <button type="button" (click)="pesquisar()">Pesquisar</button>
+    </fieldset>
+    <div>
+    </div>
+  </form>
+  <table>
+    <thead>
+      <tr>
+        <th>Codigo</th>
+        <th>Nome</th>
+        <th>Data DataNascimento</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of this.Paciente">
+        <td>{{i.Codigo}}</td>
+        <td>{{i.Nome}}</td>
+        <td>{{i.DataNascimento | date:"dd/MM/yyyy"}}</td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+<app-footer></app-footer>

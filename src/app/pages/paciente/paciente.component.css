@@ -1,0 +1,12 @@
+input{
+  margin-right: 10px;
+}
+
+table{
+  margin: 20px auto;
+  width: 30%;
+}
+
+table tr{
+  text-align: center;
+}
