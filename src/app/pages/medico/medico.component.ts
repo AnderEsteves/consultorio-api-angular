@@ -25,11 +25,8 @@ export class MedicoComponent {
 
     this.Medicos = [];
 
-    console.log(this.Id);
-
-    if(this.Id || this.Id == '0' )
+    if(this.Id || this.Id == '0')
       return this.pesquisarPorId();
-
 
     if(this.Crm)
      return this.pesquisarPorCrm();
@@ -45,20 +42,36 @@ export class MedicoComponent {
     this.medicoServices.getAll().subscribe({
       next:(jsonMedico: Medico[]) =>{
         this.Medicos = jsonMedico;
+        if(this.Medicos.length == 0)
+        this.exibirMensagemErro(404);
       },
-      error: (jsonErro) =>{
-        this.exibirMensagemErro(jsonErro.status );
+      error: jsonErro =>{
+        this.exibirMensagemErro(jsonErro.status);
       }
     })
   }
+
+  pesquisarPorId():void{
+    this.medicoServices.getId(Number(this.Id)).subscribe({
+      next: jsonMedico => {
+       this.Medicos = [jsonMedico];
+      },
+      error: jsonErro =>{
+        this.exibirMensagemErro(jsonErro.status);
+      }
+    })
+  }
+
 
   pesquisarPorCrm():void{
     this.medicoServices.getCrm(this.Crm).subscribe({
       next: jsonMedico => {
        this.Medicos = [jsonMedico];
+       if(this.Medicos.length == 0)
+        this.exibirMensagemErro(404);
       },
-      error: (jsonErro) =>{
-        this.exibirMensagemErro(jsonErro.status );
+      error: jsonErro =>{
+        this.exibirMensagemErro(jsonErro.status);
       }
     })
   }
@@ -67,36 +80,25 @@ export class MedicoComponent {
     this.medicoServices.getNome(this.Nome).subscribe({
       next: jsonMedico => {
        this.Medicos = jsonMedico;
+       if(this.Medicos.length == 0)
+          this.exibirMensagemErro(404);
       },
-      error: (jsonErro) =>{
-        this.exibirMensagemErro(jsonErro.status );
-      }
-    })
-  }
-
-  pesquisarPorId(): void{
-    this.medicoServices.getId(Number(this.Id)).subscribe({
-      next: jsonMedico =>{
-        this.Medicos = [jsonMedico];
-      },
-      error: (jsonErro) =>{
-        this.exibirMensagemErro(jsonErro.status );
+      error: jsonErro =>{
+        this.exibirMensagemErro(jsonErro.status);
       }
     })
   }
 
 
-  exibirMensagemErro(status: Number): void{
+  exibirMensagemErro(status: Number){
     if(status === 404)
-      alert('Medico Não Encontrado');
+      alert("Dado não encontrado")
 
-    else if(status === 500)
-      alert('Erro no servidor, entre em contato com o suporte');
+    if(status === 500)
+      alert("Erro no servidor, entre em contato com o suporte")
 
-    else if(status === 0)
-      alert('Falha na requisição, entre em contato com o suporte');
+    if(status === 0)
+      alert("Falha na requisição, entre em contato com o suporte")
   }
 
 }
-
-

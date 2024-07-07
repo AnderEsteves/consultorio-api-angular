@@ -19,7 +19,9 @@ export class MedicoEditComponent {
     this.medicoServices.getId(Number(id)).subscribe({
       next: (jsonMedico) =>{
         this.Medico = jsonMedico;
-
+      },
+      error: jsonErro =>{
+        this.exibirMensagemErro(jsonErro.status);
       }
     })
   }
@@ -29,6 +31,9 @@ export class MedicoEditComponent {
       next: ()=>{
         alert('Atualizado com sucesso!');
          this.router.navigate(['/medico']);
+      },
+      error: jsonErro =>{
+        this.exibirMensagemErro(jsonErro.status);
       }
     })
   }
@@ -38,8 +43,26 @@ export class MedicoEditComponent {
       next: () =>{
         alert('Excluído com sucesso!');
          this.router.navigate(['/medico']);
+      },
+      error: jsonErro =>{
+        this.exibirMensagemErro(jsonErro.status);
       }
     })
+  }
+
+
+  exibirMensagemErro(status: Number){
+    if(status === 400)
+    alert("Preencha os dados corretamente")
+
+    if(status === 404)
+      alert("Dado não encontrado")
+
+    if(status === 500)
+      alert("Erro no servidor, entre em contato com o suporte")
+
+    if(status === 0)
+      alert("Falha na requisição, entre em contato com o suporte")
   }
 
 }
