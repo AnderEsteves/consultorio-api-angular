@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Medico } from '../../models/models.medico';
 import { MedicoService } from '../../services/medicos/medico.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertComponent } from '../../shared/dialogs/alert/alert.component';
 
 @Component({
   selector: 'app-medico',
@@ -14,11 +16,13 @@ export class MedicoComponent {
   Nome : string;
   Id: string;
 
-  constructor(private medicoServices: MedicoService){
+  constructor(private medicoServices: MedicoService, private dialog: MatDialog){
     this.Medicos = [];
     this.Crm = '';
     this.Nome = '';
     this.Id = '';
+
+
   }
 
   pesquisar():void{
@@ -92,13 +96,18 @@ export class MedicoComponent {
 
   exibirMensagemErro(status: Number){
     if(status === 404)
-      alert("Dado não encontrado")
+      this.exibirMensagem("Dado não encontrado")
 
     if(status === 500)
-      alert("Erro no servidor, entre em contato com o suporte")
+      this.exibirMensagem("Erro no servidor, entre em contato com o suporte")
 
     if(status === 0)
-      alert("Falha na requisição, entre em contato com o suporte")
+      this.exibirMensagem("Falha na requisição, entre em contato com o suporte")
   }
+
+  exibirMensagem(msg: string){
+    this.dialog.open(AlertComponent, {data: {content: msg}})
+  }
+
 
 }

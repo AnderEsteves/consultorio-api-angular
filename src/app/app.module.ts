@@ -14,6 +14,11 @@ import { MedicoCreateComponent } from './pages/medico/medico-create/medico-creat
 import { FormsModule } from '@angular/forms';
 import { MedicoEditComponent } from './pages/medico/medico-edit/medico-edit.component';
 import { PacienteComponent } from './pages/paciente/paciente.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { AlertComponent } from './shared/dialogs/alert/alert.component';
+import { MatButtonModule} from '@angular/material/button';
+import { MatDialogModule} from '@angular/material/dialog';
+import { ConfirmComponent } from './shared/dialogs/confirm/confirm.component';
 
 
 @NgModule({
@@ -28,15 +33,21 @@ import { PacienteComponent } from './pages/paciente/paciente.component';
     MedicoCreateComponent,
     MedicoEditComponent,
     PacienteComponent,
+    AlertComponent,
+    ConfirmComponent,
+
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [
-    provideHttpClient()
+    provideHttpClient(),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

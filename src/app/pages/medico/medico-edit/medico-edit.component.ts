@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Medico } from '../../../models/models.medico';
 import { MedicoService } from '../../../services/medicos/medico.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertComponent } from '../../../shared/dialogs/alert/alert.component';
 
 @Component({
   selector: 'app-medico-edit',
@@ -12,7 +14,7 @@ export class MedicoEditComponent {
 
   Medico: Medico;
 
-  constructor(private medicoServices: MedicoService, private activatedRoute: ActivatedRoute, private router: Router){
+  constructor(private medicoServices: MedicoService, private activatedRoute: ActivatedRoute, private router: Router, private dialog: MatDialog){
     this.Medico = new Medico;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
 
@@ -30,8 +32,7 @@ export class MedicoEditComponent {
     if(this.validarDados()){
       this.medicoServices.put(this.Medico).subscribe({
         next: ()=>{
-          alert('Atualizado com sucesso!');
-          this.router.navigate(['/medico']);
+          this.exibirMensagemRedirecionar('Atualizado com sucesso!');
         },
         error: jsonErro =>{
           this.exibirMensagemErro(jsonErro.status);
@@ -41,15 +42,16 @@ export class MedicoEditComponent {
   }
 
   excluir(): void{
-    this.medicoServices.delete(this.Medico.Id).subscribe({
-      next: () =>{
-        alert('Excluído com sucesso!');
-         this.router.navigate(['/medico']);
-      },
-      error: jsonErro =>{
-        this.exibirMensagemErro(jsonErro.status);
-      }
-    })
+    if(confirm('Deseja excluir?')){
+      this.medicoServices.delete(this.Medico.Id).subscribe({
+        next: () =>{
+          this.exibirMensagemRedirecionar('Excluído com sucesso!');
+        },
+        error: jsonErro =>{
+          this.exibirMensagemErro(jsonErro.status);
+        }
+      })
+    }
   }
 
 
@@ -58,13 +60,13 @@ export class MedicoEditComponent {
     alert("Preencha os dados corretamente")
 
     if(status === 404)
-      alert("Dado não encontrado")
+      this.exibirMensagem("Dado não encontrado")
 
     if(status === 500)
-      alert("Erro no servidor, entre em contato com o suporte")
+      this.exibirMensagem("Erro no servidor, entre em contato com o suporte")
 
     if(status === 0)
-      alert("Falha na requisição, entre em contato com o suporte")
+      this.exibirMensagem("Falha na requisição, entre em contato com o suporte")
   }
 
   validarDados(){
@@ -86,12 +88,24 @@ export class MedicoEditComponent {
         msg += 'Nome deve conter apenas letras.\n'
 
 
-
     if(msg){
-      alert(msg)
+      this.exibirMensagem(msg)
       return false;
     }
     return true;
   }
+
+  exibirMensagem(msg: string){
+    this.dialog.open(AlertComponent, {data:{content : msg}})
+  }
+
+  exibirMensagemRedirecionar(msg: string){
+    const ref = this.dialog.open(AlertComponent, {data:{content: msg}})
+
+    ref.afterClosed().subscribe(()=>{
+      this.router.navigate(['/medico']);
+    })
+  }
+
 
 }

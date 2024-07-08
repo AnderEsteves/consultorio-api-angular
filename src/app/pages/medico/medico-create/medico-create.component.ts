@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Medico } from '../../../models/models.medico';
 import { MedicoService } from '../../../services/medicos/medico.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertComponent } from '../../../shared/dialogs/alert/alert.component';
 
 @Component({
   selector: 'app-medico-create',
@@ -11,14 +13,13 @@ import { MedicoService } from '../../../services/medicos/medico.service';
 export class MedicoCreateComponent {
   Medico = new Medico();
 
-  constructor(private medicoServices: MedicoService, private router: Router){}
+  constructor(private medicoServices: MedicoService, private router: Router, private dialog: MatDialog){}
 
   enviar(): void{
     if(this.validarDados()){
       this.medicoServices.post(this.Medico).subscribe({
         next: jsonMedico =>{
-          alert('Cadastro realizado com sucesso!');
-          this.router.navigate(['/medico']);
+          this.exibirMensagemRedirecionar('Cadastro realizado com sucesso!');
         },
         error:(jsonErro) =>{
           this.exibirMensagemErro(jsonErro.status);
@@ -29,13 +30,13 @@ export class MedicoCreateComponent {
 
   exibirMensagemErro(status: Number){
     if(status === 400)
-      alert("Confira os dados")
+      this.exibirMensagem("Confira os dados")
 
     if(status === 500)
-      alert("Erro no servidor, entre em contato com o suporte")
+      this.exibirMensagem("Erro no servidor, entre em contato com o suporte")
 
     if(status === 0)
-      alert("Falha na requisição, entre em contato com o suporte")
+      this.exibirMensagem("Falha na requisição, entre em contato com o suporte")
   }
 
   validarDados(){
@@ -57,9 +58,22 @@ export class MedicoCreateComponent {
         msg += 'Nome deve conter apenas letras.\n'
 
     if(msg){
-      alert(msg)
+      this.exibirMensagem(msg)
       return false;
     }
     return true;
+  }
+
+  exibirMensagem(msg: string){
+    this.dialog.open(AlertComponent, {data:{content: msg}})
+  }
+
+  exibirMensagemRedirecionar(msg: string){
+    const ref = this.dialog.open(AlertComponent, {data:{content: msg}})
+
+    ref.afterClosed().subscribe(
+      ()=> {
+        this.router.navigate(['/medico']);
+      })
   }
 }
