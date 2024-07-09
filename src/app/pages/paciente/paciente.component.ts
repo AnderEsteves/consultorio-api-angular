@@ -21,8 +21,6 @@ export class PacienteComponent {
     this.DataNascimentoInput = '';
   }
 
-
-
   pesquisar(): void{
     console.log("oi");
     this.pacienteServices.getAll().subscribe({

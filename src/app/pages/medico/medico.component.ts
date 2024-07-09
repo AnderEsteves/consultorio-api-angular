@@ -21,8 +21,6 @@ export class MedicoComponent {
     this.Crm = '';
     this.Nome = '';
     this.Id = '';
-
-
   }
 
   pesquisar():void{
@@ -92,7 +90,6 @@ export class MedicoComponent {
       }
     })
   }
-
 
   exibirMensagemErro(status: Number){
     if(status === 404)
